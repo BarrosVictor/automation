@@ -1,2 +1,0 @@
-testCreateDeferredTransaction,environment,idMerchant,trxType,amount,user,currency,customData,nameBank,resultMessage,idTrx
-                             ,,1001152046,Deferred,0.00,GB - Freddie Mercury,GBP - United Kingdom,"{""metadata"":{""flowType"" :""tdd""},""merchantReference"": ""TRX0777""}",Demo Bank,Success!,333
