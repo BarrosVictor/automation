@@ -132,7 +132,7 @@ public class CaptureDepositTransaction {
 
         new TransactionStatusScreen(driver)
                 .ClickOperations()
-                .InsertCancelationMessage("Cancelation Automation")
+                .InsertCancelationMessage("Cancel trx Automation")
                 .SubmitTrxCancel()
                 .ConfimationSubmitTrxCancelButtom()
                 .VerifyOperatiosSuccess("Cancelled with success.");
