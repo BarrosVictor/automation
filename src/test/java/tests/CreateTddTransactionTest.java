@@ -31,12 +31,12 @@ public class CreateTddTransactionTest {
     }*/
 
     @Test()
-    public String testCreateDeferredTransaction(String environment, String idMerchant){
+    public String testCreateDeferredTransaction(String environment){
 
         driver = Web.createChrome(environment);
         String idTrx;
         new SelectMerchantGlobex(driver)
-                .typeIdMerchant(idMerchant);
+                .typeIdMerchant("1001168916");
         new SelectTypeTrx(driver)
                 .choiceTypeTrx("Deferred");
         new InsertAmountTrx(driver)

@@ -32,8 +32,7 @@ public class CaptureDepositTransaction {
 
     public void testAuthorizeTddTransactions(String idUserAdmConsole,
                                             String passUserAdmConsole,
-                                             String environment,
-                                             String destinationName
+                                             String environment
                                             ){
 
         driver = Web.createChrome(environment);
@@ -45,7 +44,7 @@ public class CaptureDepositTransaction {
         new HomeAdminConsole(driver)
                 .UpperMenuServices("ACH Processor");
         new AchProcessorFiles(driver)
-                .ACHTable(destinationName);
+                .ACHTable("TrustlyGroupAB@Bottomline");
         new HomeAdminConsole(driver)
                 .UpperMenuServices("FI Gateway Processor");
         new FiGatewayPro(driver)
@@ -53,7 +52,7 @@ public class CaptureDepositTransaction {
         new HomeAdminConsole(driver)
                 .UpperMenuManager("Destinations");
         new ACHProConfigDestinations(driver)
-                .SelectACHProConfigDestination (destinationName)
+                .SelectACHProConfigDestination ("TrustlyGroupAB@Bottomline")
                 .ACHProChangeExchangeWindowsDestination();
         new HomeAdminConsole(driver)
                 .UpperMenuServices("FI Gateway Processor");
