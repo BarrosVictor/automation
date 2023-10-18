@@ -17,6 +17,21 @@ public class ValidationResult extends BaseBrowser {
     public ValidationResult(WebDriver driver) {
         super(driver);
     }
+
+    public Boolean CheckReturnAcoountPayment(String env){
+        new SleepClass().SleepTime(12000);
+        driver.switchTo().frame("paywithmybank-iframe");
+        Boolean result;
+        if (driver.findElement(By.id("lbx-accountList-select0")).isDisplayed()){
+             result = true;
+        }else {
+            result = false;
+        }
+        ScreenShot.take(driver,"/Users/victor.barros/Documents/webdriverJava/tddAutomation/evidence/"+Generator.dateHourToFile()+"-"+env);
+        driver.switchTo().defaultContent();
+
+        return result;
+    }
     public String  CheckResult(){
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
         driver.switchTo().defaultContent();

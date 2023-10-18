@@ -16,11 +16,13 @@ public class Web {
         //Open Browser
         System.setProperty("webdriver.chrome.driver", "/Users/victor.barros/Documents/webdriverJava/tddAutomation/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--window-size=1920,1080","--start-maximized","--remote-allow-origins=*","--allowed-ips");// ",--headless"
+        options.addArguments("--window-size=1920,1080","--start-maximized","--remote-allow-origins=*");// ,"--headless" ,"--allowed-ips", "--incognito"
         WebDriver driver = new ChromeDriver(options);
+
 
         //load Globex
         driver.get(environment);
+
         return driver;
     }
 

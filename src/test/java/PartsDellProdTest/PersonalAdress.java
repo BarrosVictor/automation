@@ -14,9 +14,14 @@ public class PersonalAdress extends BaseBrowser {
     }
 
     public PersonalAdress ClickOnPersonalRadoButtom(){
-        //Selecionar o radiobuttom Personal
-        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"ZeroSegmentOrderForHomeTrue\"]")));
-        driver.findElement(By.xpath("//*[@id=\"ZeroSegmentOrderForHomeTrue\"]")).click();
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"segmentSelector\"]//div/fieldset/div[2]/div[1]/div/label")));
+        driver.findElement(By.xpath("//*[@id=\"segmentSelector\"]//div/fieldset/div[2]/div[1]/div/label")).click();
+        return this;
+    }
+    public PersonalAdress clickOnSelectAdress(){
+        //Selecionar o botão select do endereço
+        //new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(By.linkText("Select")));
+        driver.findElement(By.xpath("//*[@id=\"addressViewList\"]/div[4]/div[1]/table/tbody/tr/td[3]/div/div/div[1]/button")).click();
         return this;
     }
 

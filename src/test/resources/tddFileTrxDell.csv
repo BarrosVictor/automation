@@ -1,12 +1,15 @@
-testCreateTransactionPRDDell,bank,environment
+testCreateTransactionPRDDell,bank,environment,lg,ps
                         ,PNC,https://www.dell.com/en-us/shop/kensington-optics-enhancing-mouse-pad/apd/a8376317/pc-accessories
                         ,Bank of America,https://www.dell.com/en-us/shop/kensington-optics-enhancing-mouse-pad/apd/a8376317/pc-accessories
-                        ,Chase,https://www.dell.com/en-us/shop/kensington-optics-enhancing-mouse-pad/apd/a8376317/pc-accessories
+                        ,Wells Fargo,https://www.dell.com/en-us/shop/kensington-optics-enhancing-mouse-pad/apd/a8376317/pc-accessories
+                        ,US Bank,https://www.dell.com/en-us/shop/kensington-optics-enhancing-mouse-pad/apd/a8376317/pc-accessories
 testCreateTransactionPRDDTrialSite,bank,environment
-                        ,Chase,https://try.paywithmybank.com/#cancel?transactionId=7427437606&requestSignature=wczK%2BRNJ5OlVBJKiUrZ2%2FrO%2Bfjw%3D
                         ,PNC,https://try.paywithmybank.com/#cancel?transactionId=7427437606&requestSignature=wczK%2BRNJ5OlVBJKiUrZ2%2FrO%2Bfjw%3D
                         ,Bank of America,https://try.paywithmybank.com/#cancel?transactionId=7427437606&requestSignature=wczK%2BRNJ5OlVBJKiUrZ2%2FrO%2Bfjw%3D
+                        ,Wells Fargo,https://try.paywithmybank.com/#cancel?transactionId=7427437606&requestSignature=wczK%2BRNJ5OlVBJKiUrZ2%2FrO%2Bfjw%3D
+                        ,US Bank,https://try.paywithmybank.com/#cancel?transactionId=7427437606&requestSignature=wczK%2BRNJ5OlVBJKiUrZ2%2FrO%2Bfjw%3D
 testCreateTransactionPRDDUserPortal,bank,environment
+                        ,Wells Fargo,https://paywithmybank.com/user-portal/?lang=en
+                        ,US Bank,https://paywithmybank.com/user-portal/?lang=en
                         ,Navy Federal,https://paywithmybank.com/user-portal/?lang=en
                         ,Bank of America,https://paywithmybank.com/user-portal/?lang=en
-                        ,Chase,https://paywithmybank.com/user-portal/?lang=en

@@ -49,12 +49,12 @@ public class TransactionStatusScreen extends BaseBrowser {
         }
         try {
             if (obtainedResult.equals(expectedResult)){
-                ScreenShot.take(driver, "/Users/victor.barros/Documents/webdriverJava/tddAutomation/evidence/" + Generator.dateHourToFile() + "-" + trxID + "-" + obtainedResult);
+                //ScreenShot.take(driver, "/Users/victor.barros/Documents/webdriverJava/tddAutomation/evidence/" + Generator.dateHourToFile() + "-" + trxID + "-" + obtainedResult);
 
             }
         }
         catch(Exception e) {
-            ScreenShot.take(driver,"/Users/victor.barros/Documents/webdriverJava/tddAutomation/evidence/"+ Generator.dateHourToFile()+"-"+trxID+"-"+obtainedResult+e);
+            //ScreenShot.take(driver,"/Users/victor.barros/Documents/webdriverJava/tddAutomation/evidence/"+ Generator.dateHourToFile()+"-"+trxID+"-"+obtainedResult+e);
             //  Block of code to handle errors
         }
         return this;

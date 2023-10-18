@@ -15,6 +15,13 @@ public class LoginDellProdTest extends BaseBrowser {
         super(driver);
     }
 
+    public LoginDellProdTest clickLogin(){
+        //clicar no Signin
+        driver.findElement(By.id("um-si-label")).click();
+        driver.findElement(By.id("um-si-label")).click();
+        driver.findElement(By.xpath("//a[@class='mh-btn mh-btn-primary navigate']")).click();
+        return this;
+    }
     public LoginDellProdTest InsertLogin(){
         //login de acesso
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By.id("SignInModel_EmailAddress")));

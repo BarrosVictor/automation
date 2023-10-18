@@ -38,7 +38,6 @@ public class SelectBank extends BaseBrowser {
     public SelectBank searchBankAmerica(String nameBank,String environment){
 
         //CLICK on searfield"//*[@id="lbx-listBank-inputSearch"]" field
-        new SleepClass().SleepTime(3000);
         driver.switchTo().defaultContent();
         if(environment.equals("Dell")){
             driver.switchTo().frame("paywithmybank-iframe-pb-widget");
@@ -63,11 +62,11 @@ public class SelectBank extends BaseBrowser {
         if(environment.equals("User Portal")){
             if (bank.equals("Navy Federal") || bank.equals("PNC")) {
                 new SleepClass().SleepTime(3000);
-                new WebDriverWait(driver, Duration.ofSeconds(8)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"lbx-listBank-select256074974\"]/div/div")));
+                new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"lbx-listBank-select256074974\"]/div/div")));
                 driver.findElement(By.xpath("//*[@id=\"bank-list-inner-container\"]/div")).click();
             } else {
                 new SleepClass().SleepTime(3000);
-                new WebDriverWait(driver, Duration.ofSeconds(8)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"bank-list-inner-container\"]/div[1]")));
+                new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"bank-list-inner-container\"]/div[1]")));
                 driver.findElement(By.xpath("//*[@id=\"bank-list-inner-container\"]/div[1]")).click();
             }
         }
@@ -87,7 +86,7 @@ public class SelectBank extends BaseBrowser {
     }
     public SelectBank clickOnTheBakSearshed(){
         //Click on "//*[@id="lbx-listBank-select000001429"]/div/div/label/div[2]/div/span[2]" button
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        new SleepClass().SleepTime(3000);
         new WebDriverWait(driver, Duration.ofSeconds(8)).until(ExpectedConditions.elementToBeClickable(By.id("lbx-listBank-select000001429")));
         driver.findElement(By.id("lbx-listBank-select000001429")).click();
         return this;
@@ -95,7 +94,7 @@ public class SelectBank extends BaseBrowser {
 
     public ConfirmationOATHBank clickOnGoToDemoBank(){
         //Click on Go to Demo Bank "//*[@id="ExternalRedirect"]/div[1]"
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        new SleepClass().SleepTime(3000);
         new WebDriverWait(driver, Duration.ofSeconds(8)).until(ExpectedConditions.elementToBeClickable(By.id("ExternalRedirect")));
         driver.findElement(By.id("ExternalRedirect")).click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
@@ -108,7 +107,7 @@ public class SelectBank extends BaseBrowser {
         driver.switchTo().defaultContent();
         driver.switchTo().frame("paywithmybank-iframe");
 
-        if (whichBank.equals("Bank of America")||whichBank.equals("Chase")){
+        if (whichBank.equals("Bank of America")||whichBank.equals("Chase")||whichBank.equals("US Bank")){
             new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(By.id("ExternalRedirect")));
             driver.findElement(By.id("ExternalRedirect")).click();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));

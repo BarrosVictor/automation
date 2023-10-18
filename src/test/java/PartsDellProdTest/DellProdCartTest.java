@@ -16,8 +16,8 @@ public class DellProdCartTest extends BaseBrowser {
     public LoginDellProdTest AddCart (){
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By.linkText("Add to Cart")));
         driver.findElement(By.linkText("Add to Cart")).click();
-        driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
-        driver.findElement(By.xpath("//*[@id=\"cart-summary-right\"]/div/div/div[1]/div[4]/div[2]/div[1]/button")).click();
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+        driver.findElement(By.id("checkout-btn-cta")).click();
         return new LoginDellProdTest(driver);
     }
 

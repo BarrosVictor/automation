@@ -1,9 +1,6 @@
 package tests;
 
-import PartsDellProdTest.DellProdCartTest;
-import PartsDellProdTest.LoginDellProdTest;
-import PartsDellProdTest.PersonalAdress;
-import PartsDellProdTest.TypePayment;
+import PartsDellProdTest.*;
 import PartsOfGlobex.*;
 import org.easetech.easytest.annotation.DataLoader;
 import org.easetech.easytest.annotation.Param;
@@ -18,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import suporte.SleepClass;
+import suporte.ValidationResult;
 import suporte.Web;
 
 import javax.swing.*;
@@ -41,12 +39,16 @@ public class ProductionEnvironmentTest {
         new DellProdCartTest(driver)
                 .AddCart();
         new LoginDellProdTest(driver)
+                //.clickLogin()
                 .InsertLogin()
                 .InsertPassword()
                 .WorkingCatpcha()
                 .ClickonSignInButtom();
+        /*new SearchProduct(driver)
+                .makingSearch();*/
         new PersonalAdress(driver)
-                .ClickOnPersonalRadoButtom()
+                //.ClickOnPersonalRadoButtom()
+                .clickOnSelectAdress()
                 .ClickNextPayment();
         new TypePayment(driver)
                 .ClickOnlineBank();
@@ -55,16 +57,12 @@ public class ProductionEnvironmentTest {
                 .searchBankAmerica(bank,env)
                 .clickOnTheBakSearshedAmerica(bank,env)
                 .clickOnGoToBank(bank);
-        ConfirmationOATHBank t = new ConfirmationOATHBank(driver);
-            if (bank.equals("Bank of America") || bank.equals("Chase")){
-                t.OAuthPSD2ProdBank(bank,env);
-            }
-            else {
-                t.OAuthProdBank(bank,env);
-            }
-            new MFASecurityAccount(driver)
-                    .ClickTypeVerifyMFA(bank,env)
-                    .ConfirmMFASecutiyCode(bank,env);
+        new ConfirmationOATHBank(driver)
+                .directionTypeBank(bank,env);
+        new MFASecurityAccount(driver)
+                .ClickTypeVerifyMFA(bank,env)
+                .ConfirmMFASecutiyCode(bank,env);
+
 
     }
     @Test
@@ -77,16 +75,11 @@ public class ProductionEnvironmentTest {
                 .searchBankAmerica(bank,env)
                 .clickOnTheBakSearshedAmerica(bank,env)
                 .clickOnGoToBank(bank);
-        ConfirmationOATHBank t = new ConfirmationOATHBank(driver);
-        if (bank.equals("Bank of America") || bank.equals("Chase")){
-            t.OAuthPSD2ProdBank(bank,env);
-        }
-        else {
-            t.OAuthProdBank(bank,env);
-            new MFASecurityAccount(driver)
-                    .ClickTypeVerifyMFA(bank,env)
-                    .ConfirmMFASecutiyCode(bank,env);
-        }
+        new ConfirmationOATHBank(driver)
+                .directionTypeBank(bank,env);
+        new MFASecurityAccount(driver)
+                .ClickTypeVerifyMFA(bank,env)
+                .ConfirmMFASecutiyCode(bank,env);
     }
     @Test
     public void testCreateTransactionPRDDUserPortal(@Param(name="environment")String environment,
@@ -99,27 +92,23 @@ public class ProductionEnvironmentTest {
         driver.findElement(By.xpath("//*[@id=\"recaptcha-anchor\"]/div[1]")).click();
         //Click on Continue button reCaptcha
         JOptionPane.showConfirmDialog(null,"Is it possible to continue?");
-        new SleepClass().SleepTime(3000);
         driver.switchTo().defaultContent();
         driver.findElement(By.id("establish")).click();
 
-
-
         new SelectBank(driver)
                 .searchBankAmerica(bank,env)
-                .clickOnTheBakSearshedAmerica(bank,env)
-                .clickOnGoToBank(bank);
-        ConfirmationOATHBank t = new ConfirmationOATHBank(driver);
-        if (bank.equals("Bank of America") || bank.equals("Chase")){
-            t.OAuthPSD2ProdBank(bank,env);
-        }
-        else {
-            t.OAuthProdBank(bank,env);
-            new MFASecurityAccount(driver)
-                    .ClickTypeVerifyMFA(bank,env)
-                    .ConfirmMFASecutiyCode(bank,env);
-        }
+                .clickOnTheBakSearshedAmerica(bank,env);
+                //.clickOnGoToBank(bank);
+        new ConfirmationOATHBank(driver)
+                .directionTypeBank(bank,env);
+        JOptionPane.showConfirmDialog(null,"Is it possible to userporal");
+        /*new ValidationResult(driver)
+                .CheckReturnAcoountPayment(env);
 
+        /*new MFASecurityAccount(driver)
+                .ClickTypeVerifyMFA(bank,env)
+                .ConfirmMFASecutiyCode(bank,env);
+        */
     }
     @After
     public void tearDown(){

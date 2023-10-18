@@ -20,8 +20,15 @@ public class ConfirmationOATHBank extends BaseBrowser {
     public ConfirmationOATHBank(WebDriver driver) {
         super(driver);
     }
-
-        public SelectBank OAuthBank(){
+    public void directionTypeBank(String bank, String env) {
+        if (bank.equals("Bank of America") || bank.equals("Chase")|| bank.equals("US Bank")){
+            this.OAuthPSD2ProdBank(bank,env);
+        }
+        else {
+            this.OAuthProdBank(bank, env);
+        }
+    }
+    public SelectBank OAuthBank(){
         //Click on "TAB" in the keyboard
         String parent = driver.getWindowHandle();
         Set<String> s = driver.getWindowHandles();
@@ -34,7 +41,7 @@ public class ConfirmationOATHBank extends BaseBrowser {
                 driver.switchTo().window(child_window);
                 driver.findElement(By.id("username")).sendKeys("Automation");
                 driver.findElement(By.id("password")).sendKeys("Automation");
-                driver.findElement(By.xpath("/html/body/form/input[4]")).click();
+                driver.findElement(By.xpath("/html/body/form/input[6]")).click();
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
                 driver.findElement(By.xpath("/html/body/form/button[1]")).click();
                 driver.switchTo().window(parent);
@@ -45,68 +52,53 @@ public class ConfirmationOATHBank extends BaseBrowser {
     }
 
     public MFASecurityAccount OAuthProdBank (String bank, String environment){
+        //dialogbox to insert account username
+        new SleepClass().SleepTime(10000);
         driver.switchTo().frame("lbx-iframeAuthenticate");
-            //dialogbox to insert account username
-            this.insertUsernameBank(bank, environment);
-            this.insertPasswordBank(bank,environment);
-            //submit button after inserted data account bank can be id=lbx-formLogin-submit
-            new SleepClass().SleepTime(4000);
-        driver.findElement(By.xpath("/html/body/div/div/div/form/div[4]/button")).click();
-            new SleepClass().SleepTime(3000);
-            //*Incluir validação de banco conectando*//
+
+        this.insertUsernameBank(bank, environment);
+        this.insertPasswordBank(bank, environment);
+
+        //submit button after inserted data account bank can be id=lbx-formLogin-submit
+        driver.findElement(By.id("lbx-formLogin-submit")).click();
+        new SleepClass().SleepTime(3000);
+        //*Incluir validação de banco conectando*//
 
         return new MFASecurityAccount(driver);
     }
 
     public ConfirmationOATHBank OAuthPSD2ProdBank(String bank, String environment){
-                //switch to bank PSD2 screen
-                this.switchToScreenBankPSD2();
-                this.insertUsernameBank(bank, environment);
-                this.insertPasswordBank(bank,environment);
-                if (bank.equals("Bank of America")) {
-                    //select text option to send msg
-                    driver.findElement(By.id("TEXT4")).click();
-                    driver.findElement(By.id("send-otp-code")).click();
+        //switch to bank PSD2 screen
+        new SleepClass().SleepTime(5000);
+        this.switchToScreenBankPSD2();
+        this.insertUsernameBank(bank,environment);
+        this.insertPasswordBank(bank,environment);
+        if (bank.equals("Bank of America")) {
+            //select text option to send msg
+            driver.findElement(By.id("TEXT4")).click();
+            driver.findElement(By.id("send-otp-code")).click();
 
-                    //getting code MFA
-                    String autCodeBOFA = JOptionPane.showInputDialog("Insert Authorization Code BOFA " + environment);
-                    driver.findElement(By.id("twAuthcodeModule-otp-code")).sendKeys(autCodeBOFA);
-                    driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div/section[3]/div/div/div/div/div/div[5]/div/section/section[2]/section[5]/div/button")).click();
+            //getting code MFA
+            String autCodeBOFA = JOptionPane.showInputDialog("Insert Authorization Code BOFA " + environment);
+            driver.findElement(By.id("twAuthcodeModule-otp-code")).sendKeys(autCodeBOFA);
+            driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div/section[3]/div/div/div/div/div/div[5]/div/section/section[2]/section[5]/div/button")).click();
 
-                    //wait consent-submit
-                    new SleepClass().SleepTime(2000);
-                    driver.findElement(By.id("consent-submit")).click();
-                    JOptionPane.showInternalConfirmDialog(null, "The bank return to portal with successfully?");
-                }else{
-                    JOptionPane.showInternalConfirmDialog(null, "The bank return to portal with successfully?");
-                }
+            //wait consent-submit
+            new SleepClass().SleepTime(2000);
+            driver.findElement(By.id("consent-submit")).click();
+            JOptionPane.showInternalConfirmDialog(null, "The bank return to portal with successfully?");
+        } else if (bank.equals("US Bank")) {
+            driver.findElement(By.id("login-button-continue")).click();
+            JOptionPane.showInternalConfirmDialog(null, "The bank return to portal with successfully?");
+        } else{
+            JOptionPane.showInternalConfirmDialog(null, "The bank return to portal with successfully?");
+        }
         driver.switchTo().window(parent);
         return this;
     }
 
-    private ConfirmationOATHBank insertPasswordBank(String bank, String environment) {
-        this.setPasswordBank(JOptionPane.showInputDialog("Insert Password"+ bank + environment));
-        if (bank.equals("Chase")) {
-            driver.findElement(By.xpath("//*[@id=\"password-text-input-field\"]")).sendKeys(this.getPasswordBank());
-            driver.findElement(By.xpath("//*[@id=\"signin-button\"]")).click();
-        }
-        else if (bank.equals("Bank of America")) {
-            driver.findElement(By.name("pass")).sendKeys(this.getPasswordBank());
-            //submit button can be id=secure-signin-submit
-            driver.findElement(By.id("secure-signin-submit")).click();
-        }
-        //Acation that insert any account password
-        else if(bank.equals("Navy Federal")){
-            driver.findElement(By.id("lbx-formAuthenticate-authFields-inputPASSWORD")).sendKeys(this.getPasswordBank());
-        }
-        else {
-            driver.findElement(By.id("lbx-formAuthenticate-authFields-inputpassword")).sendKeys(this.getPasswordBank());
-        }
-        return this;
-    }
-
     public ConfirmationOATHBank insertUsernameBank(String bank, String environment){
-        this.setUsernameBank(JOptionPane.showInputDialog("Insert Account Username "+ bank + environment));
+        this.setUsernameBank(JOptionPane.showInputDialog("Insert Account Username " + bank + environment));
 
         if (bank.equals("Chase")) {
             new SleepClass().SleepTime(5000);
@@ -120,9 +112,41 @@ public class ConfirmationOATHBank extends BaseBrowser {
             driver.findElement(By.id("lbx-formAuthenticate-authFields-inputuserId")).sendKeys(this.getUsernameBank());
         } else if (bank.equals("Navy Federal")) {
             driver.findElement(By.id("lbx-formAuthenticate-authFields-inputUSER")).sendKeys(this.getUsernameBank());
-        } else {
+        }
+        else if (bank.equals("Wells Fargo")) {
+            driver.findElement(By.id("lbx-formAuthenticate-authFields-inputuserid")).sendKeys(this.getUsernameBank());
+        }
+        else if (bank.equals("US Bank")){
+            driver.findElement(By.id("input-text-false")).sendKeys(this.getUsernameBank());
+        }
+        else {
             //Action that insert the Capital One account username
             driver.findElement(By.id("lbx-formAuthenticate-authFields-inputusername")).sendKeys(this.getUsernameBank());
+        }
+        return this;
+    }
+
+    private ConfirmationOATHBank insertPasswordBank(String bank, String environment) {
+        this.setPasswordBank(JOptionPane.showInputDialog("Insert Password"+ bank + environment));
+
+        if (bank.equals("Chase")) {
+            driver.findElement(By.xpath("//*[@id=\"password-text-input-field\"]")).sendKeys(this.getPasswordBank());
+            driver.findElement(By.xpath("//*[@id=\"signin-button\"]")).click();
+        }
+        else if (bank.equals("Bank of America")) {
+            driver.findElement(By.name("pass")).sendKeys(this.getPasswordBank());
+            //submit button can be id=secure-signin-submit
+            driver.findElement(By.id("secure-signin-submit")).click();
+        }
+        else if (bank.equals("US Bank")){
+            driver.findElement(By.name("Password")).sendKeys(this.getPasswordBank());
+        }
+        //Acation that insert any account password
+        else if(bank.equals("Navy Federal")){
+            driver.findElement(By.id("lbx-formAuthenticate-authFields-inputPASSWORD")).sendKeys(this.getPasswordBank());
+
+        } else {
+            driver.findElement(By.id("lbx-formAuthenticate-authFields-inputpassword")).sendKeys(this.getPasswordBank());
         }
         return this;
     }
@@ -139,6 +163,8 @@ public class ConfirmationOATHBank extends BaseBrowser {
         }
         return this;
     }
+
+
     public static String getUsernameBank(){
         return ConfirmationOATHBank.usernameBank;
     }
@@ -151,4 +177,5 @@ public class ConfirmationOATHBank extends BaseBrowser {
     public void setPasswordBank(String passwordBank){
         this.password = passwordBank;
     }
+
 }

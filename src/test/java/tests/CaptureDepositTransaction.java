@@ -7,8 +7,10 @@ import org.easetech.easytest.annotation.Param;
 import org.easetech.easytest.runner.DataDrivenTestRunner;
 import org.junit.After;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import suporte.Web;
@@ -23,7 +25,7 @@ public class CaptureDepositTransaction {
     public TestName test = new TestName();
 
     public void setUp(){
-        //String environment = "http://localhost:9002/admin-console/";//local
+        String environment = "http://localhost:9002/admin-console/";//local
         //String environment = "https://sandbox.paywithmybank.com/merchant-demo/globex/";//AMER SBX
         //String environment = "https://sandbox.eu.trustly.one/admin-console/transactions";//EMEA SBX
         //driver = Web.createChrome(environment);
@@ -66,8 +68,8 @@ public class CaptureDepositTransaction {
 
     public void testMakeDepositTransaction(@Param(name="idUserAdmConsole")String idUserAdmConsole,
                                            @Param(name="passUserAdmConsole")String passUserAdmConsole,
-                                           String trxId,
-                                           String environment){
+                                           @Param(name="trxId")String trxId,
+                                           @Param(name="environment")String environment){
 
         driver = Web.createChrome(environment);
         new LoginAdminConsole(driver)
@@ -87,12 +89,11 @@ public class CaptureDepositTransaction {
         driver.quit();
     }
 
-
-    public void testMakeCaptureTransaction(@Param(name="idUserAdmConsole")String idUserAdmConsole,
-                                           @Param(name="passUserAdmConsole")String passUserAdmConsole,
+    @Test
+    public void testMakeCaptureTransaction(String idUserAdmConsole,
+                                           String passUserAdmConsole,
                                            String trxId,
-                                           String environment
-                                           ){
+                                           String environment){
 
         driver = Web.createChrome(environment);
 
@@ -100,7 +101,8 @@ public class CaptureDepositTransaction {
                 .InsertLogin(idUserAdmConsole)
                 .InsertPassword(passUserAdmConsole)
                 .ClickLogin();
-
+        driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/form/div[1]/input")).sendKeys(trxId);
+        driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/form/div[22]/input")).click();
         new HomeAdminConsole(driver)
                 .ClickOnTrxId(trxId);
 
@@ -113,7 +115,7 @@ public class CaptureDepositTransaction {
         driver.quit();
     }
 
-
+    @Test
     public void testMakeCancelTransaction(@Param(name="idUserAdmConsole")String idUserAdmConsole,
                                            @Param(name="passUserAdmConsole")String passUserAdmConsole,
                                            String trxId,
@@ -138,7 +140,35 @@ public class CaptureDepositTransaction {
         driver.quit();
     }
 
-    @After
+
+    @Test
+    public void testMakeCaptureTransactionA(@Param(name="idUserAdmConsole")String idUserAdmConsole,
+                                           @Param(name="passUserAdmConsole")String passUserAdmConsole,
+                                           @Param(name="trxId")String trxId
+
+    ){
+        String environment = "http://localhost:9002/admin-console/";
+        driver = Web.createChrome(environment);
+
+        new LoginAdminConsole(driver)
+                .InsertLogin(idUserAdmConsole)
+                .InsertPassword(passUserAdmConsole)
+                .ClickLogin();
+        driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/form/div[1]/input")).sendKeys(trxId);
+        driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/form/div[22]/input")).click();
+        new HomeAdminConsole(driver)
+                .ClickOnTrxId(trxId);
+
+        new TransactionStatusScreen(driver)
+                .ClickOperations()
+                .InsertCaptureAmount("1.20")
+                .SubmitCapture()
+                .ConfimationSubmitTrxCancelButtom()
+                .VerifyOperatiosSuccess("Capture created with status Authorized.");
+        driver.quit();
+    }
+
+  @After
     public void tearDown(){
         driver.quit();
 

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import suporte.SleepClass;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -16,19 +17,21 @@ public class DeveloperOptions extends BaseBrowser {
     }
 
     public DeveloperOptions checkBoxDeveloperOptions(){
-        //click on check box //*[@id="filters"]/div[10]/span/label/span
+        new SleepClass().SleepTime(1500);//click on check box //*[@id="filters"]/div[10]/span/label/span
         driver.findElement(By.xpath("//*[@id=\"filters\"]/div[10]/span/label/span")).click();
         return this;
     }
 
-    public DeveloperOptions checkDeveloperOption (){
+    public DeveloperOptions checkDeveloperOptionCustomData (){
         //improvment for this method is select variable by field's name and the method receive this information
         //click on the customData option //*[@id="filters"]/div[10]/div[1]/label[5]
+        new SleepClass().SleepTime(1500);
         driver.findElement(By.xpath("//*[@id=\"filters\"]/div[10]/div[1]/label[5]")).click();
         return this;
     }
 
     public DeveloperOptions typeCustomData(){
+        new SleepClass().SleepTime(1500);
         String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
 
         String day = timeStamp.substring(0,2);

@@ -14,7 +14,7 @@ public class SelectTypeTrx extends BaseBrowser {
 
     public InsertAmountTrx choiceTypeTrx (String trxType){
         //Select payment  type id="paymentType" with value value="Deferred"
-        new SleepClass().SleepTime(3000);
+        new SleepClass().SleepTime(1000);
         Select paymentType = new Select(driver.findElement(By.id("paymentType")));
         paymentType.selectByVisibleText(trxType);
         return new InsertAmountTrx (driver);
